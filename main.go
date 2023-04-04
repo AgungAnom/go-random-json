@@ -17,21 +17,17 @@ func main(){
 	var id int
 
 	rand.Seed(time.Now().UnixNano())
-
-
-
 	water = rand.Intn(100 - 1) + 1
 	wind = rand.Intn(100 - 1) + 1
 	id = rand.Intn(100 - 1) + 1
-	fmt.Println("----------------- Interval : 1 -----------------")
+	fmt.Println("-----------------",time.Now(),"-----------------")
 	random(wind, water, id)
 
 
 	// Start interval
-	i := 2
+
 	for range time.Tick(time.Second * 15) {
-		fmt.Println("----------------- Interval :",i,"-----------------")
-		i++
+		fmt.Println("-----------------",time.Now(),"-----------------")
 		water = rand.Intn(100 - 1) + 1
 		wind = rand.Intn(100 - 1) + 1
 		id = rand.Intn(100 - 1) + 1
@@ -52,12 +48,13 @@ func random(wind, water, id int){
 		log.Fatalln(err)
 		
 	}
-	fmt.Println(string(requestJson))
 	req, err := http.NewRequest("POST", "https://jsonplaceholder.typicode.com/posts/" , bytes.NewBuffer(requestJson))
 	req.Header.Set("Content-type", "Application/json")
 	if err != nil {
 		log.Fatalln(err)
 	}
+	fmt.Println(req.Body)
+	
 	res, err := client.Do(req)
 	if err != nil {
 		log.Fatalln(err)
