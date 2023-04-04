@@ -54,7 +54,7 @@ func random(wind, water, id int){
 		log.Fatalln(err)
 	}
 	fmt.Println(req.Body)
-	
+
 	res, err := client.Do(req)
 	if err != nil {
 		log.Fatalln(err)
@@ -66,8 +66,8 @@ func random(wind, water, id int){
 	}
 	fmt.Println(string(body))
 	fmt.Println("{")
-	fmt.Print("	water: ", water,", \n")
-	fmt.Println("	wind: ",wind)
+	fmt.Print("   \"water\": ",water,", \n")
+	fmt.Println("   \"wind\": ",wind)
 	fmt.Println("}")
 	if water < 5 {
 		fmt.Println("status water : aman")	
