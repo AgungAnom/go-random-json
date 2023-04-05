@@ -16,6 +16,7 @@ func main(){
 	var wind int
 	var id int
 
+	//First interval
 	rand.Seed(time.Now().UnixNano())
 	water = rand.Intn(100 - 1) + 1
 	wind = rand.Intn(100 - 1) + 1
@@ -24,8 +25,7 @@ func main(){
 	random(wind, water, id)
 
 
-	// Start interval
-
+	// Start interval 15 sec
 	for range time.Tick(time.Second * 15) {
 		fmt.Println("-----------------",time.Now(),"-----------------")
 		water = rand.Intn(100 - 1) + 1
@@ -38,7 +38,7 @@ func main(){
 
 func random(wind, water, id int){
 	
-
+	// POST ID
 	data := map[string]int{
 		"userID" : id,
 	}
@@ -65,10 +65,23 @@ func random(wind, water, id int){
 		log.Fatalln(err)
 	}
 	fmt.Println(string(body))
-	fmt.Println("{")
-	fmt.Print("   \"water\": ",water,", \n")
-	fmt.Println("   \"wind\": ",wind)
-	fmt.Println("}")
+
+
+
+	// Data Sensor
+	dataSensor := map[string]int{
+		"water" : water,
+		"wind"	: wind,
+	}
+
+	jsonString, err := json.Marshal(dataSensor)
+	src := []byte(jsonString)
+	dst := &bytes.Buffer{}
+	if err := json.Indent(dst, src, "", "  "); err != nil {
+		panic(err)
+	}
+	fmt.Println(dst.String())
+
 	if water < 5 {
 		fmt.Println("status water : aman")	
 	} else if water >= 6 && water <= 8{
